@@ -61,7 +61,7 @@ final class SimpleHttpServer {
 					lastCacheUpdateTime = System.currentTimeMillis();
 				}
 
-				selector.select();
+				selector.select(this.maxCacheAliveTime);
 
 				Iterator<SelectionKey> it = selector.selectedKeys().iterator();
 				while(it.hasNext()) {
@@ -116,7 +116,7 @@ final class SimpleHttpServer {
 		String maybeCompleteRequest = new String(buf.array(), 0, buf.position());
 		if (maybeCompleteRequest.endsWith("\r\n\r\n")) {
 			// Showing some functional concepts with collect() method, 
-			// this can be done easily using substring() method 
+			this can be done easily using substring() method 
 			String filename = maybeCompleteRequest
 					.codePoints()
 					.takeWhile(c -> c > 32 && c < 127)
